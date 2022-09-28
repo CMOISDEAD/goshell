@@ -1,0 +1,10 @@
+# goshell.toml config file
+# goshell 0.1 version
+[init]
+scripts = ["/home/camilo/.local/bin/unix"]
+
+[theme]
+prompt = "(ﬦ)  "
+
+[alias]
+l = "exa --icons"

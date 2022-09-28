@@ -1,23 +1,20 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 
+	"github.com/CMOISDEAD/goshell/cmd"
 	"github.com/CMOISDEAD/goshell/internals"
+	"github.com/charmbracelet/lipgloss"
 )
 
+var style = lipgloss.NewStyle().
+	Bold(true).
+	Foreground(lipgloss.Color("#25BE6A")).
+	SetString("Goshell 0.1 version")
+
 func main() {
-	// Shell init
-	fmt.Println("Goshell, version 0.01")
-	scanner := bufio.NewScanner(os.Stdin)
-	for true {
-		fmt.Print(">> ")
-		scanner.Scan()
-		userinput := scanner.Text()
-		if len(userinput) > 0 {
-			internals.Execute(userinput)
-		}
-	}
+	c := internals.Config()
+	fmt.Println(style)
+	cmd.Initialize(c.Char.(string), c.Scripts)
 }
