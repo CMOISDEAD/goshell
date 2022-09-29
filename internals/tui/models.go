@@ -8,7 +8,9 @@ type (
 )
 
 type model struct {
-	textInput textinput.Model
-	err       error
-	code      bool
+	textInput    textinput.Model
+	err          error
+	code         bool
+	history      []string
+	historyIndex int
 }

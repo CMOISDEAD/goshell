@@ -10,7 +10,7 @@ import (
 )
 
 // env paths?
-var path string = "/usr/bin/"
+var paths = []string{"/usr/bin/", "/home/camilo/.local/bin/"}
 
 // commandNotFound error
 type commandNotFound struct{}
@@ -25,15 +25,14 @@ func Execute(input string) error {
 	command := args[0]
 	if command == "list" {
 		list(args[1:])
-	} else if command == "echo" {
-		echo(args[1:])
 	} else if command == "clear" {
 		cmd := exec.Command("clear")
 		cmd.Stdout = os.Stdout
 		cmd.Run()
 	} else {
-		if check(command) {
-			cmd := exec.Command(path+command, args[1:]...)
+		ok, i := check(command)
+		if ok {
+			cmd := exec.Command(paths[i]+command, args[1:]...)
 			cmd.Stdin = os.Stdin
 			cmd.Stdout = os.Stdout
 			cmd.Stderr = os.Stderr
@@ -47,15 +46,6 @@ func Execute(input string) error {
 		}
 	}
 	return nil
-}
-
-// echo command like
-func echo(words []string) {
-	var res string
-	for _, word := range words {
-		res += word + " "
-	}
-	fmt.Println(res)
 }
 
 // ls command like
@@ -77,13 +67,20 @@ func list(args []string) {
 }
 
 // check if the command exist in the paths
-func check(command string) bool {
-	_, err := os.Stat(path + command)
-	if err == nil {
-		return true
+func check(command string) (bool, int) {
+	var ok bool
+	var index int
+	for i, path := range paths {
+		_, err := os.Stat(path + command)
+		if err == nil {
+			ok = true
+			index = i
+			break
+		}
+		if os.IsNotExist(err) {
+			ok = false
+			index = i
+		}
 	}
-	if os.IsNotExist(err) {
-		return false
-	}
-	return false
+	return ok, index
 }

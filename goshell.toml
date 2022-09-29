@@ -4,7 +4,13 @@
 scripts = ["/home/camilo/.local/bin/unix"]
 
 [theme]
-prompt = "(ﬦ)  "
+prompt = "dmr  "
+colors = "#DE8F78"
 
-[alias]
-l = "exa --icons"
+[[alias]]
+alias = "ll"
+command = "exa --icons"
+
+[[alias]]
+alias = "pw"
+command = "pwd"

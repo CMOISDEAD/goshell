@@ -9,6 +9,17 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
+type AliasStruct struct {
+	alias   string
+	command string
+}
+
+type Configuration struct {
+	Char    interface{}
+	Scripts []string
+	Alias   []AliasStruct
+}
+
 func initScripts(scripts []string) {
 	for _, script := range scripts {
 		cmd := exec.Command("sh", script)

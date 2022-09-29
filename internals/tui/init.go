@@ -8,6 +8,11 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
+type AliasStruct struct {
+	alias   string
+	command string
+}
+
 func InitialModel(prompt string) model {
 	ti := textinput.New()
 	ti.Placeholder = "One shell to rule them all..."
@@ -19,9 +24,11 @@ func InitialModel(prompt string) model {
 	ti.PromptStyle = lipgloss.NewStyle().Bold(true)
 
 	return model{
-		textInput: ti,
-		err:       nil,
-		code:      true,
+		textInput:    ti,
+		err:          nil,
+		code:         true,
+		history:      []string{"none"},
+		historyIndex: 0,
 	}
 }
 

@@ -8,13 +8,13 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-var style = lipgloss.NewStyle().
+var welcome = lipgloss.NewStyle().
 	Bold(true).
 	Foreground(lipgloss.Color("#25BE6A")).
 	SetString("Goshell 0.1 version")
 
 func main() {
-	c := internals.Config()
-	fmt.Println(style)
+	c := internals.Config(true)
+	fmt.Println(welcome)
 	cmd.Initialize(c.Char.(string), c.Scripts)
 }
