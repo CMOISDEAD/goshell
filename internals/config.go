@@ -20,7 +20,7 @@ type Configuration struct {
 func Config(dev bool) Configuration {
 	path := "/home/camilo/goshell.toml"
 	if dev {
-		path = "./goshell.toml"
+		path = "/home/camilo/Documents/programacion/go/goshell/goshell.toml"
 	}
 	data, err := os.ReadFile(path)
 	if err != nil {
@@ -41,7 +41,7 @@ func GetAlias(dev bool) []Alias {
 	var alias []Alias
 	path := "/home/camilo/goshell.toml"
 	if dev {
-		path = "./goshell.toml"
+		path = "/home/camilo/Documents/programacion/go/goshell/goshell.toml"
 	}
 	data, err := os.ReadFile(path)
 	if err != nil {

@@ -3,6 +3,7 @@ package tui
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/CMOISDEAD/goshell/internals"
 	tea "github.com/charmbracelet/bubbletea"
@@ -18,7 +19,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEnter:
+			var err error
 			input := m.textInput.Value()
+			args := strings.Fields(input)
 			if len(input) > 0 {
 				for _, value := range internals.GetAlias(true) {
 					if value.Alias == input {
@@ -31,7 +34,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 						return m, nil
 					}
 				}
-				err := internals.Execute(input)
+				if args[0] == "zd" || args[0] == "z" {
+					err = internals.Zd(args[1:], m.path)
+					if err == nil {
+						m.path = internals.GetPwd()
+					}
+				} else {
+					err = internals.Execute(input)
+				}
 				if err != nil {
 					m.code = false
 				} else {

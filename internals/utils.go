@@ -9,19 +9,11 @@ import (
 )
 
 func GetPwd() string {
-	var res string
 	path, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err)
 	}
-	ad := strings.Split(path, "/")
-	if len(ad) >= 3 {
-		res = "../"
-		res += ad[len(ad)-3] + "/"
-		res += ad[len(ad)-2] + "/"
-		res += ad[len(ad)-1] + "/"
-	}
-	return res
+	return path
 }
 
 func GetUser() string {
@@ -35,4 +27,15 @@ func GetUser() string {
 func GetTime() string {
 	now := time.Now()
 	return now.Format("3:4:5 PM")
+}
+
+func FormatPath(path string) string {
+	var correct_path string
+	ad := strings.Split(path, "/")
+	if len(ad) >= 3 {
+		correct_path += ad[len(ad)-3] + "/"
+		correct_path += ad[len(ad)-2] + "/"
+		correct_path += ad[len(ad)-1] + "/"
+	}
+	return correct_path
 }

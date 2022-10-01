@@ -9,8 +9,8 @@ colors = "#DE8F78"
 
 [[alias]]
 alias = "ll"
-command = "exa --icons"
+command = "exa --icons -al --sort=type"
 
 [[alias]]
-alias = "pw"
-command = "pwd"
+alias = "z"
+command = "zd"

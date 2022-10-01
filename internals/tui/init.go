@@ -3,6 +3,7 @@ package tui
 import (
 	"time"
 
+	"github.com/CMOISDEAD/goshell/internals"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
@@ -27,6 +28,7 @@ func InitialModel(prompt string) model {
 		textInput:    ti,
 		err:          nil,
 		code:         true,
+		path:         internals.GetPwd(),
 		history:      []string{"none"},
 		historyIndex: 0,
 	}

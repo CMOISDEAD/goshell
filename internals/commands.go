@@ -9,9 +9,6 @@ import (
 	"strings"
 )
 
-// env paths?
-var paths = []string{"/usr/bin/", "/home/camilo/.local/bin/"}
-
 // commandNotFound error
 type commandNotFound struct{}
 
@@ -66,6 +63,7 @@ func list(args []string) {
 	fmt.Print(res)
 }
 
+// This need to go to utils
 // check if the command exist in the paths
 func check(command string) (bool, int) {
 	var ok bool
@@ -83,4 +81,17 @@ func check(command string) (bool, int) {
 		}
 	}
 	return ok, index
+}
+
+// cd like function
+func Zd(args []string, path string) error {
+	new_path := args[0]
+	if args[0][:1] == "~" {
+		new_path = "/home/camilo/" + args[0][1:]
+	}
+	err := os.Chdir(new_path)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return err
 }
